@@ -2,19 +2,26 @@
 <html lang="ZH">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Junyuan&#39;s blog</title>
+<title>Leetcode-Reverse Integer - Junyuan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Junyuan&#39;s blog">
-<meta property="og:url" content="http://www.junyuanw.com/index.html">
+    <meta name="description" content="Given a 32-bit signed integer, reverse digits of an integer.">
+<meta name="keywords" content="C++,algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode-Reverse Integer">
+<meta property="og:url" content="http://www.junyuanw.com/2019/03/26/Leetcode002-Reverse Integer/index.html">
 <meta property="og:site_name" content="Junyuan&#39;s blog">
+<meta property="og:description" content="Given a 32-bit signed integer, reverse digits of an integer.">
 <meta property="og:locale" content="ZH-CN">
+<meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/1.jpg">
+<meta property="og:updated_time" content="2019-03-26T11:41:09.549Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Junyuan&#39;s blog">
+<meta name="twitter:title" content="Leetcode-Reverse Integer">
+<meta name="twitter:description" content="Given a 32-bit signed integer, reverse digits of an integer.">
+<meta name="twitter:image" content="http://www.junyuanw.com/images/thumbnails/1.jpg">
 
 
 
@@ -92,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Junyuan&#39;s blog" height="28">
+                <img src="/images/logo.svg" alt="Leetcode-Reverse Integer" height="28">
             
             </a>
         </div>
@@ -100,7 +107,7 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item is-active" href="/">Home</a>
+                <a class="navbar-item" href="/">Home</a>
                 
                 <a class="navbar-item" href="/archives">Archives</a>
                 
@@ -135,13 +142,12 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-image">
-        <a href="/2019/03/26/Leetcode002-Reverse Integer/" class="image is-7by1">
+        <span class="image is-7by1">
             <img class="thumbnail" src="/./images/thumbnails/1.jpg" alt="Leetcode-Reverse Integer">
-        </a>
+        </span>
     </div>
     
     <div class="card-content article ">
@@ -162,127 +168,47 @@
                 </span>
                 
                 
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/03/26/Leetcode002-Reverse Integer/">Leetcode-Reverse Integer</a>
+                Leetcode-Reverse Integer
             
         </h1>
         <div class="content">
             <p>Given a 32-bit signed integer, reverse digits of an integer.</p>
+<a id="more"></a>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 123</span><br><span class="line">Output: 321</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: -123</span><br><span class="line">Output: -321</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 120</span><br><span class="line">Output: 21</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.</p>
+<p> 看起来是一个特别简单的问题，第一想法也是个野路子，先把整型转字符串，再将字符串逆序排列一下，在转换回整型，感觉不妥。</p>
+<p>算法思想特别简单，</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = res * 10 + x % 10;</span><br></pre></td></tr></table></figure>
+<p>其实我没想到，看了别人的答案才领悟。</p>
+<p>这里很容易懂，但是数据溢出是个大问题，我以为一句</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x &gt;= INT_MIN || x &lt;= INT_MAX</span><br></pre></td></tr></table></figure>
+<p>就可以解决了，too young, too naive. 果然要偷偷看答案了。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span></span><br><span class="line"><span class="hljs-keyword">public</span>:</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> rev = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">int</span> pop = x % <span class="hljs-number">10</span>;</span><br><span class="line">            x /= <span class="hljs-number">10</span>;</span><br><span class="line">            <span class="hljs-keyword">if</span> (rev &gt; INT_MAX/<span class="hljs-number">10</span> || (rev == INT_MAX / <span class="hljs-number">10</span> &amp;&amp; pop &gt; <span class="hljs-number">7</span>)) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">            <span class="hljs-keyword">if</span> (rev &lt; INT_MIN/<span class="hljs-number">10</span> || (rev == INT_MIN / <span class="hljs-number">10</span> &amp;&amp; pop &lt; <span class="hljs-number">-8</span>)) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">            rev = rev * <span class="hljs-number">10</span> + pop;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> rev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/03/26/Leetcode002-Reverse Integer/#more">Read More</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C/">C++</a>, <a class="has-link-grey -link" href="/tags/algorithm/">algorithm</a>
                 </div>
             </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/03/25/Leetcode001-Two Sum/" class="image is-7by1">
-            <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="Leetcode-Two Sum">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-25T12:26:21.083Z">2019-03-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 read (About 241 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/25/Leetcode001-Two Sum/">Leetcode-Two Sum</a>
-            
-        </h1>
-        <div class="content">
-            <p>Given an array of integers, return <strong>indices</strong> of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have <strong>exactly</strong> one solution, and you may not use the same element twice.</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/03/25/Leetcode001-Two Sum/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-25T02:47:34.182Z">2019-03-25</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 122 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/25/hello-world/">Hello World</a>
-            
-        </h1>
-        <div class="content">
-             <a id="more"></a>
-<p>​    很早以前就觉得能有一个自己的博客是特别牛X的事情，终于在大神的慢慢影响下，逐渐去学习以前没想过的东西，数学也好，算法也罢，起码每天前进一点。</p>
-<p>​    终于学会用GitHub搭博客了，照着博客的流程玩了一小天，突然就觉得自己以前好蠢，以后，要保持更新了。</p>
-<p><img src="./images/cat0.jpg" alt></p>
-
         </div>
         
         
@@ -294,7 +220,19 @@
 
 
 
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/25/Leetcode001-Two Sum/">
+                <span class="level-item">Leetcode-Two Sum</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -712,7 +650,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Junyuan&#39;s blog" height="28">
+                    <img src="/images/logo.svg" alt="Leetcode-Reverse Integer" height="28">
                 
                 </a>
                 <p class="is-size-7">
