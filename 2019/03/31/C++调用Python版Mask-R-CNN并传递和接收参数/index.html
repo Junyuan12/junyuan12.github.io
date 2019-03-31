@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ZH">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>C++调用Python版Mask-R-CNN并传递和接收参数 - Junyuan&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    
+    <meta name="description" content="想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。">
+<meta name="keywords" content="C++,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++调用Python版Mask-R-CNN并传递和接收参数">
+<meta property="og:url" content="http://www.junyuanw.com/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/index.html">
+<meta property="og:site_name" content="Junyuan&#39;s blog">
+<meta property="og:description" content="想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。">
+<meta property="og:locale" content="ZH-CN">
+<meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/0.jpg">
+<meta property="og:updated_time" content="2019-03-31T04:06:33.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++调用Python版Mask-R-CNN并传递和接收参数">
+<meta name="twitter:description" content="想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。">
+<meta name="twitter:image" content="http://www.junyuanw.com/images/thumbnails/0.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="C++调用Python版Mask-R-CNN并传递和接收参数" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/junyuan12/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="C++调用Python版Mask-R-CNN并传递和接收参数">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-03-31T01:13:00.597Z">2019-03-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 分钟 read (About 1686 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                C++调用Python版Mask-R-CNN并传递和接收参数
+            
+        </h1>
+        <div class="content">
+            <p>想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。</p>
+<a id="more"></a>
+<p><strong>运行环境：</strong></p>
+<p>Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow1.12，Keras2.0.8</p>
+<h3 id="C-环境配置"><a href="#C-环境配置" class="headerlink" title="C++环境配置"></a>C++环境配置</h3><ul>
+<li><p><strong>配置OpenCV</strong></p>
+<ol>
+<li><p>新建一个C++工程；</p>
+</li>
+<li><p>右键属性$\rightarrow$C++目录$\rightarrow$包含目录$\rightarrow$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\opencv\build\include</span><br><span class="line">D:\Programs\opencv\build\include\opencv</span><br><span class="line">D:\Programs\opencv\build\include\opencv2</span><br></pre></td></tr></table></figure>
+<p>加入包含目录，<strong>注意配置的方案平台版本和当前运行的一致</strong>；</p>
+</li>
+<li><p>右键属性$\rightarrow$C++目录$\rightarrow$库目录$\rightarrow​$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\opencv\build\x64\vc14\lib</span><br></pre></td></tr></table></figure>
+<p>加入库目录，注意VS的版本，2017改用vc15的目录；</p>
+</li>
+<li><p>右键属性$\rightarrow$链接器$\rightarrow$输入$\rightarrow$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opencv_world342.lib</span><br></pre></td></tr></table></figure>
+<p>加入其中。</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>配置Python环境</strong></p>
+<ol>
+<li><p>右键属性$\rightarrow$C++目录$\rightarrow$包含目录$\rightarrow​$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\Anaconda3\include</span><br><span class="line">D:\Programs\Anaconda3\Lib\site-packages\numpy\core\include</span><br></pre></td></tr></table></figure>
+<p>加入到包含目录中；</p>
+</li>
+<li><p>右键属性$\rightarrow$C++目录$\rightarrow$库目录$\rightarrow$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\Anaconda3\libs</span><br><span class="line">D:\Programs\Anaconda3\Lib\site-packages\numpy\core\lib</span><br></pre></td></tr></table></figure>
+<p>加入库目录;</p>
+</li>
+<li><p>右键属性$\rightarrow$链接器$\rightarrow$输入$\rightarrow$点击编辑，将</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python36.lib</span><br></pre></td></tr></table></figure>
+<p>加入其中，注意只有python36，没有python36d，所以调试的时候要用relese的版本，debug的版本会报错。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="调用Python"><a href="#调用Python" class="headerlink" title="调用Python"></a>调用Python</h3><ul>
+<li><p><strong>从C++输入图片数据</strong></p>
+<p>由于C++用OpenCV读取的图片格式和Mask R-CNN的输入格式不同，所以需要先用C++处理好图片，传递给Python。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Mat img = imread(&quot;./image.jpg&quot;);</span><br><span class="line">auto sz = img.size();</span><br><span class="line">int x = sz.width;</span><br><span class="line">int y = sz.height;</span><br><span class="line">int z = img.channels();</span><br><span class="line">uchar *CArrays = new uchar[x*y*z];</span><br><span class="line">int iChannels = img.channels();</span><br><span class="line">int iRows = img.rows;</span><br><span class="line">int iCols = img.cols * iChannels;</span><br><span class="line">if (img.isContinuous())</span><br><span class="line">&#123;</span><br><span class="line">    iCols *= iRows;</span><br><span class="line">    iRows = 1;</span><br><span class="line">&#125;</span><br><span class="line">uchar* p;</span><br><span class="line">int id = -1;</span><br><span class="line">for (int i = 0; i &lt; iRows; i++)</span><br><span class="line">&#123;</span><br><span class="line">    // get the pointer to the ith row</span><br><span class="line">    p = img.ptr&lt;uchar&gt;(i);</span><br><span class="line">    // operates on each pixel</span><br><span class="line">    for (int j = 0; j &lt; iCols; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        CArrays[++id] = p[j];//连续空间</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">npy_intp Dims[3] = &#123;y, x, z&#125;; //注意这个维度数据！</span><br><span class="line">PyObject *PyArray = PyArray_SimpleNewFromData(3, Dims, NPY_UBYTE, CArrays);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>调用Mask R-CNN</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">//初始化python</span><br><span class="line">Py_Initialize();</span><br><span class="line">import_array();</span><br><span class="line"></span><br><span class="line">PyRun_SimpleString(&quot;import sys&quot;);</span><br><span class="line">	PyRun_SimpleString(&quot;sys.path.append(r&apos;C:\\Users\\Administrator\\Documents\\Keypoints-of-humanpose-with-Mask-R-CNN-master&apos;)&quot;);</span><br><span class="line"></span><br><span class="line">//定义python类型的变量</span><br><span class="line">PyObject *pModule = NULL;</span><br><span class="line">PyObject *pFunc = NULL;</span><br><span class="line">PyObject *pArg = NULL;</span><br><span class="line">PyObject *result = NULL;</span><br><span class="line">PyObject *pDict = NULL;</span><br><span class="line"></span><br><span class="line">//直接运行python代码</span><br><span class="line">PyRun_SimpleString(&quot;print(&apos;python start&apos;)&quot;);</span><br><span class="line"></span><br><span class="line">PyObject *ArgList = PyTuple_New(1);</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">PyTuple_SetItem(ArgList, 0, PyArray);</span><br><span class="line"></span><br><span class="line">//引入模块</span><br><span class="line">pModule = PyImport_ImportModule(&quot;human_detected&quot;);</span><br><span class="line"></span><br><span class="line">if (!pModule)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;Import Module Failed&quot; &lt;&lt; endl;</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//获取模块字典属性</span><br><span class="line">pDict = PyModule_GetDict(pModule);</span><br><span class="line"></span><br><span class="line">//直接获取模块中的函数</span><br><span class="line">pFunc = PyObject_GetAttrString(pModule, &quot;detect&quot;);</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>Mask R-CNN接受参数并返回值</strong></p>
+<p>Mask R-CNN检测人项目地址：<a href="https://github.com/Junyuan12/Mask_RCNN_Humanpose" target="_blank" rel="noopener">https://github.com/Junyuan12/Mask_RCNN_Humanpose</a></p>
+<p>Mask R-CNN的配置就不细说了，网上有很多教程，主要是windows下配置pycocotools可能会有问题，</p>
+<p>windows下pycocotools安装教程：<a href="https://blog.csdn.net/qq_29592829/article/details/82877494" target="_blank" rel="noopener">https://blog.csdn.net/qq_29592829/article/details/82877494</a></p>
+<p>在Mask R-CNN中新建一个py文件，<code>human_detected.py</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line">import random</span><br><span class="line">import math</span><br><span class="line">import numpy as np</span><br><span class="line">import skimage.io</span><br><span class="line">import matplotlib</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">import coco</span><br><span class="line">import utils</span><br><span class="line">import model as modellib</span><br><span class="line">import visualize</span><br><span class="line">from model import log</span><br><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">def detect(image):</span><br><span class="line">	# print(image)</span><br><span class="line">	ROOT_DIR = os.getcwd()</span><br><span class="line">	# Directory to save logs and trained model</span><br><span class="line">	MODEL_DIR = os.path.join(ROOT_DIR, &quot;mylogs&quot;)</span><br><span class="line"></span><br><span class="line">	# Local path to trained weights file</span><br><span class="line">	COCO_MODEL_PATH = os.path.join(ROOT_DIR, &quot;mask_rcnn_coco_humanpose.h5&quot;)</span><br><span class="line">	# Download COCO trained weights from Releases if needed</span><br><span class="line">	if not os.path.exists(COCO_MODEL_PATH):</span><br><span class="line">	    utils.download_trained_weights(COCO_MODEL_PATH)</span><br><span class="line"></span><br><span class="line">	class InferenceConfig(coco.CocoConfig):</span><br><span class="line">	    GPU_COUNT = 1</span><br><span class="line">	    IMAGES_PER_GPU = 1</span><br><span class="line">	    KEYPOINT_MASK_POOL_SIZE = 7</span><br><span class="line"></span><br><span class="line">	inference_config = InferenceConfig()</span><br><span class="line"></span><br><span class="line">	# Recreate the model in inference mode</span><br><span class="line">	model = modellib.MaskRCNN(mode=&quot;inference&quot;, </span><br><span class="line">	                          config=inference_config,</span><br><span class="line">	                          model_dir=MODEL_DIR)</span><br><span class="line"></span><br><span class="line">	# Get path to saved weights</span><br><span class="line"></span><br><span class="line">	model_path = os.path.join(ROOT_DIR, &quot;mask_rcnn_coco_humanpose.h5&quot;)</span><br><span class="line">	assert model_path != &quot;&quot;, &quot;Provide path to trained weights&quot;</span><br><span class="line">	print(&quot;Loading weights from &quot;, model_path)</span><br><span class="line">	model.load_weights(model_path, by_name=True)</span><br><span class="line"></span><br><span class="line">	# COCO Class names</span><br><span class="line">	#For human pose task We just use &quot;BG&quot; and &quot;person&quot;</span><br><span class="line">	class_names = [&apos;BG&apos;, &apos;person&apos;]</span><br><span class="line"></span><br><span class="line">	#BGR-&gt;RGB</span><br><span class="line">	image = image[:,:,::-1]</span><br><span class="line">	#print(np.shape(image))</span><br><span class="line"></span><br><span class="line">	# Run detection</span><br><span class="line">	results = model.detect_keypoint([image], verbose=1)</span><br><span class="line">	r = results[0] # for one image</span><br><span class="line"></span><br><span class="line">	log(&quot;rois&quot;,r[&apos;rois&apos;])</span><br><span class="line">	log(&quot;keypoints&quot;,r[&apos;keypoints&apos;])</span><br><span class="line">	log(&quot;class_ids&quot;,r[&apos;class_ids&apos;])</span><br><span class="line">	log(&quot;keypoints&quot;,r[&apos;keypoints&apos;])</span><br><span class="line">	log(&quot;masks&quot;,r[&apos;masks&apos;])</span><br><span class="line">	log(&quot;scores&quot;,r[&apos;scores&apos;])</span><br><span class="line"></span><br><span class="line">	visualize.display_instances(image, r[&apos;rois&apos;], r[&apos;masks&apos;], r[&apos;class_ids&apos;], </span><br><span class="line">	                            class_names, r[&apos;scores&apos;])</span><br><span class="line">	flat_roi = r[&apos;rois&apos;].flatten()</span><br><span class="line">	print(flat_roi)</span><br><span class="line"> </span><br><span class="line">	return flat_roi</span><br></pre></td></tr></table></figure>
+<p>其中包括一个函数<code>detect(image)</code>，用于接受C++传进来的图片，并最终返回每个人的<code>roi</code>。</p>
+</li>
+<li><p><strong>C++接受返回参数</strong></p>
+<p>python将结果展开成一列，C++接受返回的一维数组并输出：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 调用直接获得的函数,并传递参数</span><br><span class="line">PyObject *pReturn = PyObject_CallObject(pFunc, ArgList);</span><br><span class="line"></span><br><span class="line">//获取python程序的返回结果</span><br><span class="line">//以下是对返回的一维数组结果进行处理</span><br><span class="line">if (pReturn)</span><br><span class="line">&#123;</span><br><span class="line">    //将结果类型转换成数组对象类型</span><br><span class="line">    PyArrayObject *pyResultArr = (PyArrayObject *)pReturn;</span><br><span class="line"></span><br><span class="line">    //从Python中的PyArrayObject解析出数组数据为c的double类型。</span><br><span class="line">    int *resDataArr = (int *)PyArray_DATA(pyResultArr);</span><br><span class="line">    int dimNum = PyArray_NDIM(pyResultArr);//返回数组的维度数，此处恒为1</span><br><span class="line">    npy_intp *pdim = PyArray_DIMS(pyResultArr);//返回数组各维度上的元素个数值</span><br><span class="line"></span><br><span class="line">    //以下是对返回结果的输出显示</span><br><span class="line">    for (int i = 0; i &lt; dimNum; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        for (int j = 0; j &lt; pdim[0]; ++j)</span><br><span class="line">            cout &lt;&lt; resDataArr[i * pdim[0] + j] &lt;&lt; &quot;,&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>完整代码如下</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Python.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;numpy/arrayobject.h&gt;</span><br><span class="line">#include &lt;opencv2/highgui/highgui.hpp&gt;</span><br><span class="line">#include &lt;opencv2/imgproc/imgproc.hpp&gt;</span><br><span class="line">#include &lt;opencv2/core/core.hpp&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat img = cv::imread(&quot;./image.jpg&quot;);</span><br><span class="line">	//初始化python</span><br><span class="line">	Py_Initialize();</span><br><span class="line">	import_array();</span><br><span class="line"></span><br><span class="line">	PyRun_SimpleString(&quot;import sys&quot;);</span><br><span class="line">	PyRun_SimpleString(&quot;sys.path.append(r&apos;C:\\Users\\Administrator\\Documents\\Keypoints-of-humanpose-with-Mask-R-CNN-master&apos;)&quot;);</span><br><span class="line">	//PyRun_SimpleString(&quot;print(sys.path)&quot;);</span><br><span class="line"></span><br><span class="line">	//定义python类型的变量</span><br><span class="line"></span><br><span class="line">	PyObject *pModule = NULL;</span><br><span class="line">	PyObject *pFunc = NULL;</span><br><span class="line">	PyObject *pArg = NULL;</span><br><span class="line">	PyObject *result = NULL;</span><br><span class="line">	PyObject *pDict = NULL;</span><br><span class="line"></span><br><span class="line">	//直接运行python代码</span><br><span class="line">	PyRun_SimpleString(&quot;print(&apos;python start&apos;)&quot;);</span><br><span class="line"></span><br><span class="line">	PyObject *ArgList = PyTuple_New(1);</span><br><span class="line"></span><br><span class="line">	auto sz = img.size();</span><br><span class="line">	int x = sz.width;</span><br><span class="line">	int y = sz.height;</span><br><span class="line">	int z = img.channels();</span><br><span class="line">	uchar *CArrays = new uchar[x*y*z];</span><br><span class="line">	int iChannels = img.channels();</span><br><span class="line">	int iRows = img.rows;</span><br><span class="line">	int iCols = img.cols * iChannels;</span><br><span class="line">	if (img.isContinuous())</span><br><span class="line">	&#123;</span><br><span class="line">		iCols *= iRows;</span><br><span class="line">		iRows = 1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	uchar* p;</span><br><span class="line">	int id = -1;</span><br><span class="line">	for (int i = 0; i &lt; iRows; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		// get the pointer to the ith row</span><br><span class="line">		p = img.ptr&lt;uchar&gt;(i);</span><br><span class="line">		// operates on each pixel</span><br><span class="line">		for (int j = 0; j &lt; iCols; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			CArrays[++id] = p[j];//连续空间</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	npy_intp Dims[3] = &#123; y, x, z &#125;; //注意这个维度数据！</span><br><span class="line">	PyObject *PyArray = PyArray_SimpleNewFromData(3, Dims, NPY_UBYTE, CArrays);</span><br><span class="line">	PyTuple_SetItem(ArgList, 0, PyArray);</span><br><span class="line"></span><br><span class="line">	//引入模块</span><br><span class="line">	pModule = PyImport_ImportModule(&quot;human_detected&quot;);</span><br><span class="line"></span><br><span class="line">	if (!pModule)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;Import Module Failed&quot; &lt;&lt; endl;</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//获取模块字典属性</span><br><span class="line">	pDict = PyModule_GetDict(pModule);</span><br><span class="line"></span><br><span class="line">	//直接获取模块中的函数</span><br><span class="line">	pFunc = PyObject_GetAttrString(pModule, &quot;detect&quot;);</span><br><span class="line"></span><br><span class="line">	// 调用直接获得的函数,并传递参数</span><br><span class="line">	PyObject *pReturn = PyObject_CallObject(pFunc, ArgList);</span><br><span class="line"></span><br><span class="line">	//获取python程序的返回结果</span><br><span class="line">	//以下是对返回的一维数组结果进行处理</span><br><span class="line">	if (pReturn) &#123;</span><br><span class="line">		//将结果类型转换成数组对象类型</span><br><span class="line">		PyArrayObject *pyResultArr = (PyArrayObject *)pReturn;</span><br><span class="line"></span><br><span class="line">		//从Python中的PyArrayObject解析出数组数据为c的double类型。</span><br><span class="line">		int *resDataArr = (int *)PyArray_DATA(pyResultArr);</span><br><span class="line">		int dimNum = PyArray_NDIM(pyResultArr);//返回数组的维度数，此处恒为1</span><br><span class="line">		npy_intp *pdim = PyArray_DIMS(pyResultArr);//返回数组各维度上的元素个数值</span><br><span class="line"></span><br><span class="line">												   //以下是对返回结果的输出显示</span><br><span class="line">		for (int i = 0; i &lt; dimNum; ++i) &#123;</span><br><span class="line">			for (int j = 0; j &lt; pdim[0]; ++j)</span><br><span class="line">				cout &lt;&lt; resDataArr[i * pdim[0] + j] &lt;&lt; &quot;,&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	PyRun_SimpleString(&quot;print(&apos;python end&apos;)&quot;);</span><br><span class="line"></span><br><span class="line">	////释放python</span><br><span class="line">	Py_Finalize();</span><br><span class="line"></span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C/">C++</a>, <a class="has-link-grey -link" href="/tags/python/">python</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/29/Leetcode013-Roman to Integer/">
+                <span class="level-item">Leetcode-Roman to Integer</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Junyuan Wang">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Junyuan Wang
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Deep Learning
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Shenyang Aerospcae University</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/junyuan12" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/junyuan12" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Junyuan</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Leetcode/">
+            <span class="level-start">
+                <span class="level-item">Leetcode</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/else/">
+            <span class="level-start">
+                <span class="level-item">else</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/algorithm/" style="font-size: 15px;">algorithm</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="C++调用Python版Mask-R-CNN并传递和接收参数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T01:13:00.597Z">2019-03-31</time></div>
+                    <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="has-link-black-ter is-size-6">C++调用Python版Mask-R-CNN并传递和接收参数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/29/Leetcode013-Roman to Integer/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Roman to Integer">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-29T12:01:50.381Z">2019-03-29</time></div>
+                    <a href="/2019/03/29/Leetcode013-Roman to Integer/" class="has-link-black-ter is-size-6">Leetcode-Roman to Integer</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/28/Leetcode009-Palindrome Number/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Palindrome Number">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-28T05:07:16.091Z">2019-03-28</time></div>
+                    <a href="/2019/03/28/Leetcode009-Palindrome Number/" class="has-link-black-ter is-size-6">Leetcode-Palindrome Number</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/27/通过git将项目上传到github/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/2.jpg" alt="通过git将项目上传到github">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-27T08:31:31.282Z">2019-03-27</time></div>
+                    <a href="/2019/03/27/通过git将项目上传到github/" class="has-link-black-ter is-size-6">通过git将项目上传到github</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/else/">else</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/26/Leetcode007-Reverse Integer/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Reverse Integer">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-26T05:03:28.828Z">2019-03-26</time></div>
+                    <a href="/2019/03/26/Leetcode007-Reverse Integer/" class="has-link-black-ter is-size-6">Leetcode-Reverse Integer</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/algorithm/">
+                        <span class="tag">algorithm</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="C++调用Python版Mask-R-CNN并传递和接收参数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T01:13:00.597Z">2019-03-31</time></div>
+                    <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="has-link-black-ter is-size-6">C++调用Python版Mask-R-CNN并传递和接收参数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/29/Leetcode013-Roman to Integer/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Roman to Integer">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-29T12:01:50.381Z">2019-03-29</time></div>
+                    <a href="/2019/03/29/Leetcode013-Roman to Integer/" class="has-link-black-ter is-size-6">Leetcode-Roman to Integer</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/28/Leetcode009-Palindrome Number/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Palindrome Number">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-28T05:07:16.091Z">2019-03-28</time></div>
+                    <a href="/2019/03/28/Leetcode009-Palindrome Number/" class="has-link-black-ter is-size-6">Leetcode-Palindrome Number</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/27/通过git将项目上传到github/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/2.jpg" alt="通过git将项目上传到github">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-27T08:31:31.282Z">2019-03-27</time></div>
+                    <a href="/2019/03/27/通过git将项目上传到github/" class="has-link-black-ter is-size-6">通过git将项目上传到github</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/else/">else</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/03/26/Leetcode007-Reverse Integer/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Reverse Integer">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-26T05:03:28.828Z">2019-03-26</time></div>
+                    <a href="/2019/03/26/Leetcode007-Reverse Integer/" class="has-link-black-ter is-size-6">Leetcode-Reverse Integer</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/algorithm/">
+                        <span class="tag">algorithm</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="C++调用Python版Mask-R-CNN并传递和接收参数" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Junyuan Wang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ZH-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
