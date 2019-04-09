@@ -2,26 +2,26 @@
 <html lang="ZH">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Leetcode-Roman to Integer - Junyuan&#39;s blog</title>
+<title>C++栈实现分隔符的匹配 - Junyuan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     
-    <meta name="description" content="Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
-<meta name="keywords" content="C++,algorithm">
+    <meta name="description" content="栈是一种后进先出(LIFO)的线性数据结构。">
+<meta name="keywords" content="C++,Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-Roman to Integer">
-<meta property="og:url" content="http://www.junyuanw.com/2019/03/29/Leetcode013-Roman to Integer/index.html">
+<meta property="og:title" content="C++栈实现分隔符的匹配">
+<meta property="og:url" content="http://www.junyuanw.com/2019/04/08/C++栈实现分隔符的匹配/index.html">
 <meta property="og:site_name" content="Junyuan&#39;s blog">
-<meta property="og:description" content="Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta property="og:description" content="栈是一种后进先出(LIFO)的线性数据结构。">
 <meta property="og:locale" content="ZH-CN">
-<meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/lc.jpg">
-<meta property="og:updated_time" content="2019-03-29T12:10:04.566Z">
+<meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/1.jpg">
+<meta property="og:updated_time" content="2019-04-08T03:08:10.901Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode-Roman to Integer">
-<meta name="twitter:description" content="Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
-<meta name="twitter:image" content="http://www.junyuanw.com/images/thumbnails/lc.jpg">
+<meta name="twitter:title" content="C++栈实现分隔符的匹配">
+<meta name="twitter:description" content="栈是一种后进先出(LIFO)的线性数据结构。">
+<meta name="twitter:image" content="http://www.junyuanw.com/images/thumbnails/1.jpg">
 
 
 
@@ -99,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Leetcode-Roman to Integer" height="28">
+                <img src="/images/logo.svg" alt="C++栈实现分隔符的匹配" height="28">
             
             </a>
         </div>
@@ -146,7 +146,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Roman to Integer">
+            <img class="thumbnail" src="/./images/thumbnails/1.jpg" alt="C++栈实现分隔符的匹配">
         </span>
     </div>
     
@@ -154,17 +154,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-29T12:01:50.381Z">2019-03-29</time>
+                <time class="level-item has-text-grey" datetime="2019-04-08T02:44:59.650Z">2019-04-08</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 read (About 421 words)
+                    3 分钟 read (About 376 words)
                 </span>
                 
                 
@@ -178,55 +178,26 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Leetcode-Roman to Integer
+                C++栈实现分隔符的匹配
             
         </h1>
         <div class="content">
-            <p>Roman numerals are represented by seven different symbols: <code>I</code>, <code>V</code>, <code>X</code>, <code>L</code>, <code>C</code>, <code>D</code> and <code>M</code>.</p>
+            <p>栈是一种后进先出(<em>LIFO</em>)的线性数据结构。</p>
 <a id="more"></a>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Symbol       Value</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
-<p>For example, two is written as <code>II</code> in Roman numeral, just two one’s added together. Twelve is written as, <code>XII</code>, which is simply <code>X</code> + <code>II</code>. The number twenty seven is written as <code>XXVII</code>, which is <code>XX</code> + <code>V</code> + <code>II</code>.</p>
-<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not <code>IIII</code>. Instead, the number four is written as <code>IV</code>. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as <code>IX</code>. There are six instances where subtraction is used:</p>
+<p>栈适用于数据存储后以相反的顺序来检索的情况。站的一个应用是在程序中匹配分隔符。</p>
+<p>在C++程序中存在下列分隔符：圆括号”<code>(</code>“和”<code>)</code>“、方括号”<code>[</code>“和”<code>]</code>“、花括号”<code>{</code>“和”<code>}</code>“、注释分隔符”<code>/*</code>“和”<code>*/</code>“</p>
+<p><strong>栈的操作：</strong></p>
 <ul>
-<li><code>I</code> can be placed before <code>V</code> (5) and <code>X</code> (10) to make 4 and 9. </li>
-<li><code>X</code> can be placed before <code>L</code> (50) and <code>C</code> (100) to make 40 and 90. </li>
-<li><code>C</code> can be placed before <code>D</code> (500) and <code>M</code> (1000) to make 400 and 900.</li>
+<li>clear()——清空栈。</li>
+<li>isEmpty()——判断栈是否为空。</li>
+<li>push(el)——将元素el放到栈的顶部。</li>
+<li>pop()——弹出栈顶部的元素。</li>
+<li>topEL()——获取栈顶部的元素，不删除。</li>
 </ul>
-<p>Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;III&quot;</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;IV&quot;</span><br><span class="line">Output: 4</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;IX&quot;</span><br><span class="line">Output: 9</span><br></pre></td></tr></table></figure>
-<p><strong>Example 4:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;LVIII&quot;</span><br><span class="line">Output: 58</span><br><span class="line">Explanation: L = 50, V= 5, III = 3.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 5:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;MCMXCIV&quot;</span><br><span class="line">Output: 1994</span><br><span class="line">Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</span><br></pre></td></tr></table></figure>
-<p>最开始想用每种情况都写一遍，虽然会的不多，但还是嫌麻烦，想到了Python中的用两个<code>list</code>去对应相同的索引的不同类型，所以用数组老对应不同的罗马符号。</p>
-<p><strong>Solution：</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int romanToInt(string s) &#123;</span><br><span class="line">        int num[] = &#123;1, 5, 10, 50, 100, 500, 1000&#125;;</span><br><span class="line">        string rom = &quot;IVXLCDM&quot;;</span><br><span class="line">        vector&lt;int&gt; tmp;</span><br><span class="line">        int res = 0;</span><br><span class="line">        for (int i = 0; i &lt; s.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int j = 0; j &lt; 7; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if (s[i] == rom[j])</span><br><span class="line">                    tmp.push_back(num[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; tmp.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (i == tmp.size() - 1 || tmp[i] &gt;= tmp[i + 1])</span><br><span class="line">            &#123;</span><br><span class="line">                res += tmp[i];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                res -= tmp[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>if (i == tmp.size() - 1 || tmp[i] &gt;= tmp[i + 1])</code>，这里最开始是<code>if(tmp[i] &gt;= tmp[i + 1])</code>，处理<code>&quot;MCDLXXVI&quot;</code>时报错了，输出结果发现最后的<code>I</code>并没有加进去，很神奇，原因还没找到，先留个坑。</p>
-<table>
-<thead>
-<tr>
-<th>Time Submitted</th>
-<th>Status</th>
-<th>Runtime</th>
-<th>Memory</th>
-<th>Language</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a few seconds ago</td>
-<td><a href="https://leetcode.com/submissions/detail/218498486/" target="_blank" rel="noopener">Accepted</a></td>
-<td>20 ms</td>
-<td>9 MB</td>
-<td>cpp</td>
-</tr>
-</tbody>
-</table>
+<p><strong>genStack.h</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//******************* genStack.h ************************</span><br><span class="line">//   generic class for vector implenmentation of stack</span><br><span class="line"></span><br><span class="line">#ifndef STACK</span><br><span class="line">#define STACK</span><br><span class="line"></span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;class T, int capacity = 30&gt;</span><br><span class="line">class Stack &#123;</span><br><span class="line">public:</span><br><span class="line">    Stack() &#123;</span><br><span class="line">        pool.reserve(capacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void clear() &#123;</span><br><span class="line">        pool.clear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool isEmpty() const &#123;</span><br><span class="line">        return pool.empty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T&amp; topEl() &#123;</span><br><span class="line">        return pool.back();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T pop() &#123;</span><br><span class="line">        T el = pool.back();</span><br><span class="line">        pool.pop_back();</span><br><span class="line">        return el;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void push(const T&amp; el) &#123;</span><br><span class="line">        pool.push_back(el);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    vector&lt;T&gt; pool;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p><strong>genStack.cpp</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">//******************* genStack.h ************************</span><br><span class="line">//用栈实现分隔符的匹配</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &quot;genStack.h&quot;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    string str = &quot;s=t[5]+u/(v*(w+y))&quot;;</span><br><span class="line">    Stack&lt;char&gt; s1;</span><br><span class="line">    for (int i = 0; i &lt; str.size(); i++) &#123;</span><br><span class="line">        //注意单引号和双引号的使用！！！</span><br><span class="line">        if (str[i] == &apos;(&apos; || str[i] == &apos;[&apos; || str[i] == &apos;&#123;&apos;) &#123;</span><br><span class="line">            s1.push(str[i]);</span><br><span class="line">            //cout &lt;&lt; &quot;topEL: &quot; &lt;&lt; s1.topEl() &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (str[i] == &apos;)&apos; || str[i] == &apos;]&apos; || str[i] == &apos;&#125;&apos;) &#123;</span><br><span class="line">            if ((s1.topEl()==&apos;(&apos; &amp;&amp; str[i]==&apos;)&apos;) || (s1.topEl()==&apos;[&apos; &amp;&amp; str[i]==&apos;]&apos;) || (s1.topEl()==&apos;&#123;&apos; &amp;&amp; str[i]==&apos;&#125;&apos;)) &#123;</span><br><span class="line">                s1.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                cout &lt;&lt; &quot;error!&quot; &lt;&lt; endl;</span><br><span class="line">                system(&quot;pause&quot;);</span><br><span class="line">                return 0;</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        else if (str[i] == &apos;/&apos;) &#123;</span><br><span class="line">            if (str[i + 1] == &apos;*&apos;) &#123;</span><br><span class="line">                for (int j = i; j &lt; str.size(); j++) &#123;</span><br><span class="line">                    if (str[j] == &apos;*&apos; &amp;&amp; str[j + 1] == &apos;/&apos;) &#123;</span><br><span class="line">                        i = j + 1;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (j == str.size()-1) &#123;</span><br><span class="line">                        cout &lt;&lt; &quot;&apos;/*&apos; can not match &apos;*/&apos;&quot; &lt;&lt; endl;</span><br><span class="line">                        system(&quot;pause&quot;);</span><br><span class="line">                        return 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                continue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (s1.isEmpty())</span><br><span class="line">        cout &lt;&lt; &quot;success!&quot; &lt;&lt; endl;</span><br><span class="line">    else</span><br><span class="line">        cout &lt;&lt; &quot;failed!&quot; &lt;&lt; endl;</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -234,7 +205,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/C/">C++</a>, <a class="has-link-grey -link" href="/tags/algorithm/">algorithm</a>
+                    <a class="has-link-grey -link" href="/tags/Algorithm/">Algorithm</a>, <a class="has-link-grey -link" href="/tags/C/">C++</a>
                 </div>
             </div>
         </div>
@@ -251,17 +222,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">C++调用Python版Mask-R-CNN并传递和接收参数</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/28/Leetcode009-Palindrome Number/">
-                <span class="level-item">Leetcode-Palindrome Number</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/31/Leetcode014-Longest Common Prefix/">
+                <span class="level-item">Leetcode-Longest Common Prefix</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -841,7 +805,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Leetcode-Roman to Integer" height="28">
+                    <img src="/images/logo.svg" alt="C++栈实现分隔符的匹配" height="28">
                 
                 </a>
                 <p class="is-size-7">
