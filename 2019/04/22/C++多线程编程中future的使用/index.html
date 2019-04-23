@@ -17,7 +17,7 @@
 <meta property="og:description" content="最近一直在搞多线程，C++的底子较烂，直接用.detach()方法创建线程，无法使输入顺序和输出顺序同步，而且输入数据在不断的产生，类似生产者和消费者问题，不断的创建新线程会浪费时间，所以想到用线程池的方法。">
 <meta property="og:locale" content="ZH-CN">
 <meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/3.jpg">
-<meta property="og:updated_time" content="2019-04-23T01:45:48.115Z">
+<meta property="og:updated_time" content="2019-04-23T01:52:58.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++多线程编程中std::future的使用">
 <meta name="twitter:description" content="最近一直在搞多线程，C++的底子较烂，直接用.detach()方法创建线程，无法使输入顺序和输出顺序同步，而且输入数据在不断的产生，类似生产者和消费者问题，不断的创建新线程会浪费时间，所以想到用线程池的方法。">
@@ -191,7 +191,7 @@
 <p><strong>测试结果：</strong></p>
 <p><em>来源：<a href="https://github.com/progschj/ThreadPool" target="_blank" rel="noopener">https://github.com/progschj/ThreadPool</a></em></p>
 <p><code>GitHub</code>2k多<code>star</code>的一个线程池的项目，改了一下<code>example</code>，看输出更直观一些。</p>
-<p>话说昨天有个小破站的后台源码被<code>push</code>上来了，<code>golang</code>的教程可能要火了，<code>push</code>一时爽，牢饭吃到老，职业道德好是要有的。</p>
+<p>话说昨天有个小破站的后台源码被<code>push</code>上来了，<code>golang</code>的教程可能要火了，<code>push</code>一时爽，牢饭吃到老，职业道德还是要有的。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello hello hello hello hello hello hello hello hello hello 1 2 0 1 2 2 0 1 0 0 world </span><br><span class="line">1world 2  world 0 world 1 hello 2 world 2 world 2 hello 0 hello 3 world 0 world 0 hello 1</span><br><span class="line">hello 3 hello 0 hello 1 hello 2 world 0 world 1 hello 1 hello 2 world 2 world 0 hello 3 </span><br><span class="line">world 3 world 1 world 3 world 0world 1  world 2 world 2 world 1 world 3</span><br><span class="line"></span><br><span class="line">0 1 2 0 1 2 0 1 2 0 1 2 3 0 1 2 3 0 1 2 3</span><br></pre></td></tr></table></figure>
 <p>可以发现，创建了10个线程，线程的执行是并行的，但是输出的结果和输出的顺序是一样的。</p>
 <p><strong>完整代码：</strong></p>
@@ -220,6 +220,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Leetcode-Remove Duplicates from Sorted Array</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -276,7 +283,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -373,7 +380,7 @@
                 <span class="level-item">Leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/else/">
@@ -409,6 +416,25 @@
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Remove Duplicates from Sorted Array">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-23T06:39:55.054Z">2019-04-23</time></div>
+                    <a href="/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/" class="has-link-black-ter is-size-6">Leetcode-Remove Duplicates from Sorted Array</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -486,25 +512,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="C++调用Python版Mask-R-CNN并传递和接收参数">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T01:13:00.597Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="has-link-black-ter is-size-6">C++调用Python版Mask-R-CNN并传递和接收参数</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -523,7 +530,7 @@
                     <span class="level-item">四月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -555,14 +562,14 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/C/">
                         <span class="tag">C++</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">10</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/algorithm/">
                         <span class="tag">algorithm</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 
@@ -612,6 +619,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Remove Duplicates from Sorted Array">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-23T06:39:55.054Z">2019-04-23</time></div>
+                    <a href="/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/" class="has-link-black-ter is-size-6">Leetcode-Remove Duplicates from Sorted Array</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/22/C++多线程编程中future的使用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/./images/thumbnails/3.jpg" alt="C++多线程编程中std::future的使用">
@@ -686,25 +712,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/./images/thumbnails/0.jpg" alt="C++调用Python版Mask-R-CNN并传递和接收参数">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T01:13:00.597Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/C++调用Python版Mask-R-CNN并传递和接收参数/" class="has-link-black-ter is-size-6">C++调用Python版Mask-R-CNN并传递和接收参数</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -723,7 +730,7 @@
                     <span class="level-item">四月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -755,14 +762,14 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/C/">
                         <span class="tag">C++</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">10</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/algorithm/">
                         <span class="tag">algorithm</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 
