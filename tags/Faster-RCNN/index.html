@@ -2,26 +2,19 @@
 <html lang="ZH">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Leetcode-Remove Duplicates from Sorted Array - Junyuan&#39;s blog</title>
+<title>Tag: Faster RCNN - Junyuan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     
-    <meta name="description" content="Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modifyin">
-<meta name="keywords" content="C++,algorithm">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-Remove Duplicates from Sorted Array">
-<meta property="og:url" content="http://www.junyuanw.com/2019/04/23/Leetcode026-Remove Duplicates from Sorted Array/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Junyuan&#39;s blog">
+<meta property="og:url" content="http://www.junyuanw.com/tags/Faster-RCNN/index.html">
 <meta property="og:site_name" content="Junyuan&#39;s blog">
-<meta property="og:description" content="Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modifyin">
 <meta property="og:locale" content="ZH-CN">
-<meta property="og:image" content="http://www.junyuanw.com/images/thumbnails/lc.jpg">
-<meta property="og:updated_time" content="2019-04-23T08:50:51.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode-Remove Duplicates from Sorted Array">
-<meta name="twitter:description" content="Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modifyin">
-<meta name="twitter:image" content="http://www.junyuanw.com/images/thumbnails/lc.jpg">
+<meta name="twitter:title" content="Junyuan&#39;s blog">
 
 
 
@@ -99,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Leetcode-Remove Duplicates from Sorted Array" height="28">
+                <img src="/images/logo.svg" alt="Junyuan&#39;s blog" height="28">
             
             </a>
         </div>
@@ -143,115 +136,64 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">Tags</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Faster RCNN</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-image">
-        <span class="image is-7by1">
-            <img class="thumbnail" src="/./images/thumbnails/lc.jpg" alt="Leetcode-Remove Duplicates from Sorted Array">
-        </span>
+        <a href="/2019/04/29/Faster RCNN论文阅读/" class="image is-7by1">
+            <img class="thumbnail" src="/./images/faster RCNN/title.jpg" alt="论文阅读——Faster RCNN，Region Proposal Network好在哪里">
+        </a>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-23T06:39:55.054Z">2019-04-23</time>
+                <time class="level-item has-text-grey" datetime="2019-04-29T02:29:33.891Z">2019-04-29</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Leetcode/">Leetcode</a>
+                <a class="has-link-grey -link" href="/categories/paper/">paper</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 read (About 514 words)
+                    18 分钟 read (About 2713 words)
                 </span>
                 
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span> visits
-                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Leetcode-Remove Duplicates from Sorted Array
+                <a class="has-link-black-ter" href="/2019/04/29/Faster RCNN论文阅读/">论文阅读——Faster RCNN，Region Proposal Network好在哪里</a>
             
         </h1>
         <div class="content">
-            <p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank" rel="noopener"><strong>in-place</strong></a> such that each element appear only <em>once</em> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array in-place</strong> with O(1) extra memory.</p>
-<a id="more"></a>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [1,1,2],</span><br><span class="line"></span><br><span class="line">Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&apos;t matter what you leave beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [0,0,1,1,1,2,2,3,3,4],</span><br><span class="line"></span><br><span class="line">Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&apos;t matter what values are set beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Clarification:</strong></p>
-<p>Confused why the returned value is an integer but your answer is an array?</p>
-<p>Note that the input array is passed in by <strong>reference</strong>, which means modification to the input array will be known to the caller as well.</p>
-<p>Internally you can think of this:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nums is passed in by reference. (i.e., without making a copy)</span><br><span class="line">int len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">// any modification to nums in your function would be known by the caller.</span><br><span class="line">// using the length returned by your function, it prints the first len elements.</span><br><span class="line">for (int i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Solution:</strong><br><code>Vector</code>在日常写程序用的比较多，所以看一眼就有了点想法。<br>传入的是<code>vector</code>的引用，需要在原数组上操作，<code>vector</code>已经排序了，比较索引为<code>i</code>和<code>i+1</code>的元素是否相同就可以，因为美股元素只能出现一次，所以有两种解决办法，遇到相同的元素移到最后或者删除，移到最后还要额外增加一个变量来计算不同元素的数量，所以直接用删除的方式。<br>需要注意的就是<code>vector</code>的删除问题，当删除索引为<code>i</code>的元素时，<code>i</code>后面的元素都会向前移动一位，要注意<code>i++</code>的索引的变化。</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span></span><br><span class="line"><span class="hljs-keyword">public</span>:</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (nums.size() == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.size() - <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (nums[i] == nums[i + <span class="hljs-number">1</span>]) &#123;</span><br><span class="line">                nums.erase(nums.begin() + i + <span class="hljs-number">1</span>);</span><br><span class="line">                i--; <span class="hljs-comment">//注意索引的变化</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="hljs-keyword">return</span> nums.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Time Submitted</th>
-<th style="text-align:left">Status</th>
-<th style="text-align:left">Runtime</th>
-<th style="text-align:left">Memory</th>
-<th style="text-align:left">Language</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a few seconds ago</td>
-<td style="text-align:left"><a href="https://leetcode.com/submissions/detail/224381666/" target="_blank" rel="noopener">Accepted</a></td>
-<td style="text-align:left">156 ms</td>
-<td style="text-align:left">9.9 MB</td>
-<td style="text-align:left">cpp</td>
-</tr>
-</tbody>
-</table>
-<p>大神的solution：</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span></span><br><span class="line"><span class="hljs-keyword">public</span>:</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        nums.erase(<span class="hljs-built_in">std</span>::unique(nums.begin(), nums.end()), nums.end());</span><br><span class="line">        <span class="hljs-keyword">return</span> nums.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Time Submitted</th>
-<th style="text-align:left">Status</th>
-<th style="text-align:left">Runtime</th>
-<th style="text-align:left">Memory</th>
-<th style="text-align:left">Language</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a few seconds ago</td>
-<td style="text-align:left"><a href="https://leetcode.com/submissions/detail/224392614/" target="_blank" rel="noopener">Accepted</a></td>
-<td style="text-align:left">24 ms</td>
-<td style="text-align:left">9.8 MB</td>
-<td style="text-align:left">cpp</td>
-</tr>
-</tbody>
-</table>
-
+            <p><code>Faster RCNN</code>是为目标检测而提出的一种网络，目标检测的任务是从一张给定的图片中不仅要对图像中的物体进行分类，而且要为每个类别的物体加一个<code>Box</code>，也就是要确定检测到的物体的位置。<br></p>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/C/">C++</a>, <a class="has-link-grey -link" href="/tags/algorithm/">algorithm</a>
+                <a class="button is-size-7 is-light" href="/2019/04/29/Faster RCNN论文阅读/#more">Read More</a>
                 </div>
             </div>
         </div>
         
         
-        
     </div>
 </div>
 
@@ -259,26 +201,7 @@
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/29/Faster RCNN论文阅读/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">论文阅读——Faster RCNN，Region Proposal Network好在哪里</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/22/C++多线程编程中future的使用/">
-                <span class="level-item">C++多线程编程中std::future的使用</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
+
 
 
 </div>
@@ -902,7 +825,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Leetcode-Remove Duplicates from Sorted Array" height="28">
+                    <img src="/images/logo.svg" alt="Junyuan&#39;s blog" height="28">
                 
                 </a>
                 <p class="is-size-7">
