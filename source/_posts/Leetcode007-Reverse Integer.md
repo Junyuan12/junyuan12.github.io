@@ -1,6 +1,6 @@
 ---
 title: Leetcode-Reverse Integer
-updated: 2019-04-06 12:00:00
+date: 2019-04-06 12:00:00
 categories: Leetcode
 tags:
      - C++

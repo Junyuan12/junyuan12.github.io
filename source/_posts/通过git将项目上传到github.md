@@ -1,6 +1,6 @@
 ---
 title: 通过git将项目上传到github
-updated: 2019-04-09 12:00:00
+date: 2019-04-09 12:00:00
 categories: git
 tags:
      - git

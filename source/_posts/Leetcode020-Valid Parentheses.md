@@ -1,6 +1,6 @@
 ---
 title: Leetcode-Valid Parentheses
-updated: 2019-04-12 12:00:00
+date: 2019-04-12 12:00:00
 categories: Leetcode
 tags:
      - C++

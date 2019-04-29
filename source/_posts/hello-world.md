@@ -1,6 +1,6 @@
 ---
 title: Hello World
-updated: 2019-03-26 12:00:00
+date: 2019-03-26 12:00:00
 ---
  <!-- more -->
 

@@ -1,6 +1,6 @@
 ---
 title: Leetcode-Palindrome Number
-updated: 2019-04-07 12:00:00
+date: 2019-04-07 12:00:00
 categories: Leetcode
 tags:
      - C++
