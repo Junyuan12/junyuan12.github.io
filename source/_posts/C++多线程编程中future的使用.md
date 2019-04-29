@@ -1,5 +1,6 @@
 ---
 title: C++多线程编程中std::future的使用
+updated: 2019-04-23 12:00:00
 categories: C++
 tags:
      - C++

@@ -1,5 +1,6 @@
 ---
 title: Leetcode-Longest Common Prefix
+updated: 2019-04-11 12:00:00
 categories: Leetcode
 tags:
      - C++

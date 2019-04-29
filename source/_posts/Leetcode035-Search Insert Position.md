@@ -1,5 +1,6 @@
 ---
 title: Leetcode-Search Insert Position
+updated: 2019-04-29 12:00:00
 categories: Leetcode
 tags:
      - C++

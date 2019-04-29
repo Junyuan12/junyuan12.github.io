@@ -1,5 +1,6 @@
 ---
 title: Leetcode-Remove Duplicates from Sorted Array
+updated: 2019-04-17 12:00:00
 categories: Leetcode
 tags:
      - C++
