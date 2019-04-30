@@ -13,21 +13,21 @@ Given a 32-bit signed integer, reverse digits of an integer.
 
 **Example 1:**
 
-```
+```c++
 Input: 123
 Output: 321
 ```
 
 **Example 2:**
 
-```
+```c++
 Input: -123
 Output: -321
 ```
 
 **Example 3:**
 
-```
+```c++
 Input: 120
 Output: 21
 ```
@@ -39,7 +39,7 @@ Assume we are dealing with an environment which could only store integers within
 
 算法思想特别简单，
 
-```
+```c++
 res = res * 10 + x % 10;
 ```
 
@@ -47,7 +47,7 @@ res = res * 10 + x % 10;
 
 这里很容易懂，但是数据溢出是个大问题，我以为一句
 
-```
+```c++
 x >= INT_MIN || x <= INT_MAX
 ```
 

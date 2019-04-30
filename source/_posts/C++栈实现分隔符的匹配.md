@@ -25,7 +25,7 @@ tags:
 
 **genStack.h**
 
-```
+```c++
 //******************* genStack.h ************************
 //   generic class for vector implenmentation of stack
 
@@ -74,7 +74,7 @@ private:
 
 **genStack.cpp**
 
-```
+```c++
 //******************* genStack.h ************************
 //用栈实现分隔符的匹配
 

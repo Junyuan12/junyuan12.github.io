@@ -23,7 +23,7 @@ tags:
 
 话说昨天有个小破站的后台源码被`push`上来了，`golang`的教程可能要火了，`push`一时爽，牢饭吃到老，职业道德还是要有的。
 
-```
+```c++
 hello hello hello hello hello hello hello hello hello hello 1 2 0 1 2 2 0 1 0 0 world 
 1world 2  world 0 world 1 hello 2 world 2 world 2 hello 0 hello 3 world 0 world 0 hello 1
 hello 3 hello 0 hello 1 hello 2 world 0 world 1 hello 1 hello 2 world 2 world 0 hello 3 

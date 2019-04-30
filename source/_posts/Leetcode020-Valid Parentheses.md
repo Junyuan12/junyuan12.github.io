@@ -22,42 +22,42 @@ Note that an empty string is also considered valid.
 
 **Example 1:**
 
-```
+```c++
 Input: "()"
 Output: true
 ```
 
 **Example 2:**
 
-```
+```c++
 Input: "()[]{}"
 Output: true
 ```
 
 **Example 3:**
 
-```
+```c++
 Input: "(]"
 Output: false
 ```
 
 **Example 4:**
 
-```
+```c++
 Input: "([)]"
 Output: false
 ```
 
 **Example 5:**
 
-```
+```c++
 Input: "{[]}"
 Output: true
 ```
 
 **Solution:**
 
-```
+```c++
 class Solution {
 public:
     bool isValid(string str) {

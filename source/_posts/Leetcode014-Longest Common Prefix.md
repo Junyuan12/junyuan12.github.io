@@ -15,14 +15,14 @@ If there is no common prefix, return an empty string `""`.
 
 **Example 1:**
 
-```
+```c++
 Input: ["flower","flow","flight"]
 Output: "fl"
 ```
 
 **Example 2:**
 
-```
+```c++
 Input: ["dog","racecar","car"]
 Output: ""
 Explanation: There is no common prefix among the input strings.

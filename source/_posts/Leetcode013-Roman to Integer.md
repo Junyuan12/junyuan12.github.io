@@ -11,7 +11,7 @@ Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `
 
 <!-- more -->
 
-```
+```c++
 Symbol       Value
 I             1
 V             5
@@ -34,28 +34,28 @@ Given a roman numeral, convert it to an integer. Input is guaranteed to be withi
 
 **Example 1:**
 
-```
+```c++
 Input: "III"
 Output: 3
 ```
 
 **Example 2:**
 
-```
+```c++
 Input: "IV"
 Output: 4
 ```
 
 **Example 3:**
 
-```
+```c++
 Input: "IX"
 Output: 9
 ```
 
 **Example 4:**
 
-```
+```c++
 Input: "LVIII"
 Output: 58
 Explanation: L = 50, V= 5, III = 3.
@@ -63,7 +63,7 @@ Explanation: L = 50, V= 5, III = 3.
 
 **Example 5:**
 
-```
+```c++
 Input: "MCMXCIV"
 Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
@@ -73,7 +73,7 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 **Solution：**
 
-```
+```c++
 class Solution {
 public:
     int romanToInt(string s) {

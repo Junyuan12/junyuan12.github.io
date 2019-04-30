@@ -4,7 +4,7 @@ date: 2019-04-14 12:00:00
 categories: C++
 tags:
      - C++
-     - python
+     - Python
 ---
 
 想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。
@@ -81,7 +81,7 @@ Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow
 
   由于C++用OpenCV读取的图片格式和Mask R-CNN的输入格式不同，所以需要先用C++处理好图片，传递给Python。
 
-  ```
+  ```c++
   Mat img = imread("./image.jpg");
   auto sz = img.size();
   int x = sz.width;
@@ -114,7 +114,7 @@ Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow
 
 + **调用Mask R-CNN**
 
-  ```
+  ```c++
   //初始化python
   Py_Initialize();
   import_array();
@@ -170,7 +170,7 @@ Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow
 
   在Mask R-CNN中新建一个py文件，`human_detected.py`
 
-  ```
+  ```python
   import os
   import sys
   import random
@@ -251,7 +251,7 @@ Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow
 
   python将结果展开成一列，C++接受返回的一维数组并输出：
 
-  ```
+  ```c++
   // 调用直接获得的函数,并传递参数
   PyObject *pReturn = PyObject_CallObject(pFunc, ArgList);
   
@@ -279,7 +279,7 @@ Visual Studio 2015，Python3.6（Anaconda），OpenCV3.4.2（C++），tensorflow
 
 + **完整代码如下**
 
-  ```
+  ```c++
   #include <Python.h>
   #include <iostream>
   #include <string>

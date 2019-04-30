@@ -41,7 +41,7 @@ Note that the input array is passed in by **reference**, which means modificatio
 
 Internally you can think of this:
 
-```
+```c++
 // nums is passed in by reference. (i.e., without making a copy)
 int len = removeDuplicates(nums);
 

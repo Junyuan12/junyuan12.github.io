@@ -15,7 +15,7 @@ You may assume that each input would have **exactly** one solution, and you may 
 
 **Example:**
 
-```
+```c++
 Given nums = [2, 7, 11, 15], target = 9,
 
 Because nums[0] + nums[1] = 2 + 7 = 9,
@@ -26,7 +26,7 @@ return [0, 1].
 
 我的解决方案：
 
-```
+```c++
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -58,7 +58,7 @@ Top Voted Solution：
 
 The basic idea is to maintain a hash table for each element num in nums, using num as key and its index (0-based) as value. For each num, search for target - num in the hash table. If it is found and is not the same element as num, then we are done.
 
-```
+```c++
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
