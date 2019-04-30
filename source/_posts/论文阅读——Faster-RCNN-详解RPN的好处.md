@@ -149,7 +149,9 @@ array([[ -84.,  -40.,   99.,   55.],
 ```
 下面这个表格对比了9种尺寸的anchor的变换：
 
-![sclae](论文阅读——Faster-RCNN-详解RPN的好处/scale.png)
+<table class="tg"><tr><th class="tg-xldj">base_anchor</th><th class="tg-xldj">ratios</th><th class="tg-xldj">宽，高，中心点横坐标，中心点纵坐标</th><th class="tg-xldj">坐标</th></tr>
+<tr><td class="tg-xldj" rowspan="9">16x16</td><td class="tg-uys7" rowspan="3">23x12<br>2:1</td><td class="tg-xldj">[184,96,7.5,7.5]    scale=8</td><td class="tg-xldj">[ -84.  -40.   99.   55.]</td></tr><tr><td class="tg-xldj">[368,192,7.5,7.5]   scale=16</td><td class="tg-xldj">[-176.  -88.  191.  103.]</td></tr>
+<tr><td class="tg-xldj">[736,384,7.5,7.5]    scale=32</td><td class="tg-xldj">[-360. -184.  375.  199.]</td></tr><tr><td class="tg-uys7" rowspan="3">16x16<br>1:1</td><td class="tg-xldj">[128,128,7.5,7.5]    scale=8</td><td class="tg-xldj">[ -56.  -56.   71.   71.]</td></tr><tr><td class="tg-xldj">[256,256,7.5,7.5]    scale=16</td><td class="tg-xldj">[-120. -120.  135.  135.]</td></tr><tr><td class="tg-xldj">[512,512,7.5,7.5]    scale=32</td><td class="tg-xldj">[-248. -248.  263.  263.]</td></tr><tr><td class="tg-uys7" rowspan="3">11x22<br>1:2</td><td class="tg-xldj">[88,176,7.5,7.5]    scale=8</td><td class="tg-xldj">[ -36.  -80.   51.   95.]</td></tr><tr><td class="tg-xldj">[176,352,7.5,7.5]    scale=16</td><td class="tg-xldj">[ -80. -168.   95.  183.]</td></tr><tr><td class="tg-xldj">[352,704,7.5,7.5]    scale=32</td><td class="tg-xldj">[-168. -344.  183.  359.]</td></tr></table>
 
 得到的`anchor`如下图所示，蓝色点代表`feature map`中的特征点，每种颜色框代表一种长宽比，同一颜色不同大小的矩形框代表不同的尺度：
 ![Faster RCNN](论文阅读——Faster-RCNN-详解RPN的好处/anchor.png)
