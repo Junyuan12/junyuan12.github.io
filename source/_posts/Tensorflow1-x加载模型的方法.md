@@ -10,7 +10,9 @@ tags:
 
 ### Tensorflow1.x加载模型的方法
 
-代码地址：[点我查看代码](https://github.com/Junyuan12/Tensorflow1.x_save_and_load_model)
+代码地址：[查看完整代码](https://github.com/Junyuan12/Tensorflow1.x_save_and_load_model)
+
+<!-- more -->
 
 #### 一个错误的使用
 
