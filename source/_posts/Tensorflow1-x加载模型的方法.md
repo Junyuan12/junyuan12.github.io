@@ -8,8 +8,6 @@ tags:
 - 加载模型
 ---
 
-### Tensorflow1.x加载模型的方法
-
 代码地址：[查看完整代码](https://github.com/Junyuan12/Tensorflow1.x_save_and_load_model)
 
 <!-- more -->
