@@ -4,7 +4,8 @@ date: 2019-04-14 12:00:00
 categories: C++
 tags:
      - C++
-     - Python
+     - python
+     - mask rcnn
 ---
 
 想做一个用Mask R-CNN只检测人的demo，发现github已经有人用Python实现了，但后处理用的是C++，所以想直接用C++器调用python，再将需要的结果返回给C++。

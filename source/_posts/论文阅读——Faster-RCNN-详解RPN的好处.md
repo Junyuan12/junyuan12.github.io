@@ -3,7 +3,7 @@ title: '论文阅读——Faster RCNN,详解RPN的好处'
 date: 2019-04-30 10:36:52
 categories: 论文阅读
 tags:
-     - Python
+     - python
      - 论文阅读
      - Faster RCNN
 mathjax: true
