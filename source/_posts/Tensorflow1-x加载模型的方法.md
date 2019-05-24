@@ -1,7 +1,8 @@
 ---
 title: Tensorflow1.x加载模型的方法
 date: 2019-05-04 20:16:21
-categories: tensorflow
+categories: 
+- 深度学习
 tags: 
 - python
 - tensorflow
