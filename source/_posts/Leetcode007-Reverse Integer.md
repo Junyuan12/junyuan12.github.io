@@ -5,6 +5,7 @@ categories: Leetcode
 tags:
      - C++
      - algorithm
+mathjax: true
 ---
 
 Given a 32-bit signed integer, reverse digits of an integer.
