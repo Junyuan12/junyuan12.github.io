@@ -74,7 +74,7 @@ drive.mount('/content/drive')
 
 也可以展开侧边栏查看文件：
 
-![file](Google免费云环境Colaboratory使用教程\connect_to_drive.png)
+![file](Google-Colaboratory-tutorial\connect_to_drive.png)
 
 #### 查看配置
 

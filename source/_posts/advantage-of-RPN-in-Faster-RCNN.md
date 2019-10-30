@@ -1,5 +1,5 @@
 ---
-title: '论文阅读——Faster RCNN,详解RPN的好处'
+title: 论文阅读——Faster RCNN,详解RPN的好处
 date: 2019-04-30 10:36:52
 categories: 论文阅读
 tags:
@@ -19,11 +19,11 @@ mathjax: true
 
 #### RCNN
 `RCNN`使用`selective search`方法，为每张图片提出大概1k~2k个候选区域，然后将每个候选区域都输入到网络中，进行特征提取，之后输入到一个SVM分类器中判断物体类别，最后使用一个回归器得到物体的精确位置，即`Box`。通过简单描述就可以看出，`RCNN`的缺点非常明显，对于现在的网络，基本都是端到端的结构，而`RCNN`的处理流程很复杂，并且保存每个候选区域的特征也会占用非常多的空间；其二，对这么多的候选区域，计算会浪费非常多的时间，而且提取的特征会重复。
-![RCNN](论文阅读——Faster-RCNN-详解RPN的好处/RCNN.png)
+![RCNN](advantage-of-RPN-in-Faster-RCNN/RCNN.png)
 
 #### Fast RCNN
 `Fast RCNN`作为`RCNN`的进阶版，主要改进在两方面，一个是只需要对输入图像提一次特征，然后将找到候选区域对应的特征，对特征进行分类和回归得到`Box`；另一方面是`ROI Pooling`，由于网络中全连接层的存在，所以要求网络所谓输入大小必须是相同的，但`selective search`选出的候选区域大小不同，如果直接将输入图像都缩放到相同的大小，会丢失图像的信息；通过`ROI Pooling`可以解决这个问题，相比较于`Max Pooling`固定的`stride`，`ROI Pooling`的`stride`是根据输出的大小来决定的，比如当前`ROI feature map`的大小为$h \times w$，经过`ROI Pooling`后输出的固定大小为$H \times W$，那么`ROI Pooling`的`stride`就是$\frac{h}{H} \times \frac{w}{W}$。
-![Fast RCNN](论文阅读——Faster-RCNN-详解RPN的好处/Fast RCNN.png)
+![Fast RCNN](advantage-of-RPN-in-Faster-RCNN/Fast RCNN.png)
 
 ### Faster RCNN
 #### 论文核心
@@ -154,7 +154,7 @@ array([[ -84.,  -40.,   99.,   55.],
 <tr><td class="tg-xldj">[736,384,7.5,7.5]    scale=32</td><td class="tg-xldj">[-360. -184.  375.  199.]</td></tr><tr><td class="tg-uys7" rowspan="3">16x16<br>1:1</td><td class="tg-xldj">[128,128,7.5,7.5]    scale=8</td><td class="tg-xldj">[ -56.  -56.   71.   71.]</td></tr><tr><td class="tg-xldj">[256,256,7.5,7.5]    scale=16</td><td class="tg-xldj">[-120. -120.  135.  135.]</td></tr><tr><td class="tg-xldj">[512,512,7.5,7.5]    scale=32</td><td class="tg-xldj">[-248. -248.  263.  263.]</td></tr><tr><td class="tg-uys7" rowspan="3">11x22<br>1:2</td><td class="tg-xldj">[88,176,7.5,7.5]    scale=8</td><td class="tg-xldj">[ -36.  -80.   51.   95.]</td></tr><tr><td class="tg-xldj">[176,352,7.5,7.5]    scale=16</td><td class="tg-xldj">[ -80. -168.   95.  183.]</td></tr><tr><td class="tg-xldj">[352,704,7.5,7.5]    scale=32</td><td class="tg-xldj">[-168. -344.  183.  359.]</td></tr></table>
 
 得到的`anchor`如下图所示，蓝色点代表`feature map`中的特征点，每种颜色框代表一种长宽比，同一颜色不同大小的矩形框代表不同的尺度：
-![Faster RCNN](论文阅读——Faster-RCNN-详解RPN的好处/anchor.png)
+![Faster RCNN](advantage-of-RPN-in-Faster-RCNN/anchor.png)
 手贱就想画图，结果就被自己蠢到了。
 
 **`plt`画矩形的默认坐标系大小都是1，所以想画大一点的矩形，一定要先设置坐标系的大小**
@@ -183,9 +183,9 @@ plt.show()
 > Faster R-CNN is composed of two modules. The first module is a deep fully convolutional network that proposes regions, and the second module is the Fast R-CNN detector that uses the proposed regions.  
 
 `Faster R-CNN`由两部分组成，一部分是是`Region proposal network`，突出用于检测的候选区域，另一部分和`Fast RCNN`一样，对候选区域进行检测，输出目标的类别和框的位置，网络结构如图：
-![Faster RCNN](论文阅读——Faster-RCNN-详解RPN的好处/Faster RCNN.png)
+![Faster RCNN](advantage-of-RPN-in-Faster-RCNN/Faster RCNN.png)
 这里我理解就是在网络提完特征后再加一层，用于选出候选区域。
-![RPN](论文阅读——Faster-RCNN-详解RPN的好处/RPN.png)
+![RPN](advantage-of-RPN-in-Faster-RCNN/RPN.png)
 
 
 

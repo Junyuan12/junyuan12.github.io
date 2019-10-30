@@ -78,7 +78,7 @@ loss_plot.show()
 
 执行完上面的代码会生成一个可视化的界面，用来表示迭代次数和损失之间的关系：
 
-![](tensorwatch——可视化深度学习库的使用/loss_stream.png)
+![](tensorwatch-tutorial/loss_stream.png)
 
 继续执行，用以表示迭代次数和训练的正确率之间的关系：
 
@@ -90,7 +90,7 @@ acc_plot.show()
 
 执行完Figure会变成下图的样子：
 
-![](tensorwatch——可视化深度学习库的使用/acc_stream.png)
+![](tensorwatch-tutorial/acc_stream.png)
 
 **注意在终端执行完之前不要关闭figure，否则可视化就结束了。**
 
@@ -102,7 +102,7 @@ python gen_data.py
 
 就可以在`jupyter notebook`中可视化结果啦。
 
-![](tensorwatch——可视化深度学习库的使用/start.gif)
+![](tensorwatch-tutorial/start.gif)
 
 至此，可视化的任务就结束了。
 

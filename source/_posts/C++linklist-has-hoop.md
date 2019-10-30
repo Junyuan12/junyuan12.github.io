@@ -14,7 +14,7 @@ tags:
 
 ### 有环链表
 
-![有环链表](C++判断一个单链表是否有环/CycleChain.jpg)
+![有环链表](C++linklist-has-hoop/CycleChain.jpg)
 
 看图更直观。
 

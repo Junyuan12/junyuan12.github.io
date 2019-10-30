@@ -71,7 +71,7 @@ accuracy is:  0.9784
 
 网络结构：
 
-![test_with_network](Tensorflow1-x加载模型的方法/test_with_network.png)
+![test_with_network](Tensorflow1-x-lode-model/test_with_network.png)
 
 #### 使用.meta文件构建图
 
@@ -115,7 +115,7 @@ accuracy is:  0.9784
 
 网络结构：
 
-![test_with_network](Tensorflow1-x加载模型的方法/test_with_meta.png)
+![test_with_network](Tensorflow1-x-lode-model/test_with_meta.png)
 
 使用`.meta`测试时，网络输出那里出现了两个分支，猜测是`.meta`保存了训练时测试`accuracy`那部分图，我在测试的代码里又写了一个测试`accuracy`的部分，所以两部分都被保存了，但不影响测试的结果。
 
@@ -123,7 +123,7 @@ accuracy is:  0.9784
 
 很容易猜到，图加载了两次，已经重建网络了，然后又加载了`.meta`，导致图的结构乱了，看图：
 
-![test_with_network](Tensorflow1-x加载模型的方法/incorrect_usage.png)
+![test_with_network](Tensorflow1-x-lode-model/incorrect_usage.png)
 
 网络的结构已经变了，所以加载训练好的模型时，要么重建图，要么加载`.meta`，混合起来就容易出错。
 
