@@ -12,7 +12,7 @@ tags:
 
 原文地址：[github]( https://github.com/chiphuyen/python-is-cool)
 
-## 1. Lambda, map, filter, reduce
+## Lambda, map, filter, reduce
 The lambda keyword is used to create inline functions. The functions`square_fn` and `square_ld` below are identical.
 
 ```python
@@ -100,7 +100,7 @@ print(product)
 ==> 12.95564683272412
 ```
 
-### Note on the performance of lambda functions
+**Note on the performance of lambda functions**
 
 Lambda functions are meant for one time use. Each time `lambda x: dosomething(x)` is called, the function has to be created, which hurts the performance if you call `lambda x: dosomething(x)` multiple times (e.g. when you pass it inside `reduce`).
 
@@ -108,10 +108,10 @@ When you assign a name to the lambda function as in `fn = lambda x: dosomething(
 
 Even though I find lambdas cool, I personally recommend using named functions when you can for the sake of clarity.
 
-## 2. List manipulation
+## List manipulation
 Python lists are super cool.
 
-### 2.1 Unpacking
+### Unpacking
 We can unpack a list by each element like this:
 ```python
 elems = [1, 2, 3, 4]
@@ -134,7 +134,7 @@ print(d)
     4
 ```
 
-### 2.2 Slicing
+### Slicing
 We know that we can reverse a list using `[::-1]`.
 
 ```python
@@ -169,7 +169,7 @@ print(elems)
 ==> [1, 3, 5, 7, 9]
 ```
 
-### 2.3 Insertion
+### Insertion
 We can change the value of an element in a list to another value.
 
 ```python
@@ -200,7 +200,7 @@ print(elems)
 ==> [0, 0.2, 0.3, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-### 2.4 Flattening
+### Flattening
 We can flatten a list of lists using `sum`.
 
 ```python
@@ -221,7 +221,7 @@ flatten(nested_lists)
 # https://github.com/sahands/python-by-example/blob/master/python-by-example.rst#flattening-lists
 ```
 
-### 2.5 List vs generator
+### List vs generator
 To illustrate the difference between a list and a generator, let's look at an example of creating n-grams out of a list of tokens.
 
 One way to create n-grams is to use a sliding window.
@@ -292,7 +292,7 @@ for ngram in ngrams_generator:
 
 Note that to create slices, we use `(tokens[...] for i in range(n))` instead of `[tokens[...] for i in range(n)]`. `[]` is the normal list comprehension that returns a list. `()` returns a generator.
 
-## 3. Classes and magic methods
+## Classes and magic methods
 In Python, magic methods are prefixed and suffixed with the double underscore `__`, also known as dunder. The most wellknown magic method is probably `__init__`.
 
 ```python
@@ -386,7 +386,7 @@ class Node:
         self.left = left
         self.right = right
 ```
-## 4. local namespace, object's attributes
+## local namespace, object's attributes
 The `locals()` function returns a dictionary containing the variables defined in the local namespace.
 
 ```python
@@ -437,7 +437,7 @@ print(model3.__dict__)
 ==> {'hidden_size': 100, 'num_layers': 3, 'learning_rate': 0.0003}
 ```
 
-## 5. Wild import
+## Wild import
 Often, you run into this wild import `*` that looks something like this:
 
 `file.py`
