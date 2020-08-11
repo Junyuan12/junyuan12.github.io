@@ -97,18 +97,22 @@
 
 
 
-<meta name="description" content="Simple is better than complex. Complex is better than complicated.">
+<meta name="description" content="Win10 VSCode搭建C++环境，并配置openCV4，记录一下，避免每次都要查好多博客。">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VSCodeC++环境搭建并配置OpenCV">
 <meta property="og:url" content="http://www.junyuanw.com/2020/08/09/VSCode-configruation-and-opencv/index.html">
 <meta property="og:site_name" content="Junyuan&#39;s blog">
-<meta property="og:description" content="Simple is better than complex. Complex is better than complicated.">
+<meta property="og:description" content="Win10 VSCode搭建C++环境，并配置openCV4，记录一下，避免每次都要查好多博客。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-09T12:51:56.550Z">
+<meta property="og:image" content="http://www.junyuanw.com/2020/08/09/VSCode-configruation-and-opencv/dir_config.png">
+<meta property="og:image" content="http://www.junyuanw.com/2020/08/09/VSCode-configruation-and-opencv/compiler.png">
+<meta property="og:image" content="http://www.junyuanw.com/2020/08/09/VSCode-configruation-and-opencv/compiler1.png">
+<meta property="og:updated_time" content="2020-08-11T14:08:51.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VSCodeC++环境搭建并配置OpenCV">
-<meta name="twitter:description" content="Simple is better than complex. Complex is better than complicated.">
+<meta name="twitter:description" content="Win10 VSCode搭建C++环境，并配置openCV4，记录一下，避免每次都要查好多博客。">
+<meta name="twitter:image" content="http://www.junyuanw.com/2020/08/09/VSCode-configruation-and-opencv/dir_config.png">
 
 
 
@@ -405,7 +409,62 @@
       
 
       
-        
+        <p>Win10 VSCode搭建C++环境，并配置openCV4，记录一下，避免每次都要查好多博客。</p>
+<a id="more"></a>
+<h3 id="预安装环境"><a href="#预安装环境" class="headerlink" title="预安装环境"></a>预安装环境</h3><ul>
+<li><h4 id="编译C"><a href="#编译C" class="headerlink" title="编译C++"></a>编译C++</h4></li>
+</ul>
+<ol>
+<li><p>VSCode，<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">下载</a>；</p>
+</li>
+<li><p>mingw64，推荐离线版的，<a href="https://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z" target="_blank" rel="noopener">x86_64-posix-seh下载</a>，注意是posix，因为win32版本编译openCV会出问题，gcc版本是8.1.0，把bin加入到环境变量，<strong>gcc —version</strong>验证；</p>
+</li>
+</ol>
+<ul>
+<li><h4 id="配置openCV"><a href="#配置openCV" class="headerlink" title="配置openCV"></a>配置openCV</h4></li>
+</ul>
+<ol>
+<li><p>Opencv4，<a href="https://github.com/opencv/opencv/releases" target="_blank" rel="noopener">下载</a>；</p>
+</li>
+<li><p>Cmake，<a href="https://github.com/opencv/opencv/releases" target="_blank" rel="noopener">下载</a>。</p>
+</li>
+</ol>
+<h3 id="编译openCV"><a href="#编译openCV" class="headerlink" title="编译openCV"></a>编译openCV</h3><p>打开Cmake输入源文件路径和编译路径，在<strong>configure</strong>中选MinGW，按照图2，3配置。</p>
+<p><img src="/2020/08/09/VSCode-configruation-and-opencv/dir_config.png" alt="file"></p>
+<center>图1  Cmake编译路径配置</center>
+
+<p><img src="/2020/08/09/VSCode-configruation-and-opencv/compiler.png" alt="file"></p>
+<center>图2  选择编译方式</center>
+
+<p><img src="/2020/08/09/VSCode-configruation-and-opencv/compiler1.png" alt="file"></p>
+<center>图3  编译器路径</center>
+
+<p><strong>configure</strong>结束后，根据需要勾选掉不需要的，我勾选掉了<em>ENABLE_PRECONPILED_HEADERS</em>，<em>BUILD_opencv_ts</em> ，<em>WITH_CUDA</em>  和<em>OPENCV_ENABLE_ALLOCATOR_STATS</em>，然后<strong>generate</strong>。</p>
+<p>CD到刚刚build好的目录，执行<strong>minGW32-make</strong>开始编译，编译遇到错误可以回去勾选掉有问题的选项重新<strong>configure</strong>和<strong>generate</strong>，然后接着编译。</p>
+<h3 id="VSCode配置"><a href="#VSCode配置" class="headerlink" title="VSCode配置"></a>VSCode配置</h3><p>VSCode安装C/C++扩展，创建一个.vscode文件夹，创建3个文件。</p>
+<ul>
+<li><strong>c_cpp_properties.json</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Win32&quot;,</span><br><span class="line">            &quot;includePath&quot;: [</span><br><span class="line">                &quot;$&#123;workspaceRoot&#125;&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/include/**&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed&quot;,</span><br><span class="line">                &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include&quot;,</span><br><span class="line">                &quot;D:/Programs/opencv/mingw_build/install/include&quot;,</span><br><span class="line">                &quot;D:/Programs/opencv/mingw_build/install/include/opencv2&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;defines&quot;: [</span><br><span class="line">                &quot;_DEBUG&quot;,</span><br><span class="line">                &quot;UNICODE&quot;,</span><br><span class="line">                &quot;__GNUC__=6&quot;,</span><br><span class="line">                &quot;__cdecl=__attribute__((__cdecl__))&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;intelliSenseMode&quot;: &quot;msvc-x64&quot;,</span><br><span class="line">            &quot;browse&quot;: &#123;</span><br><span class="line">                &quot;limitSymbolsToIncludedHeaders&quot;: true,</span><br><span class="line">                &quot;databaseFilename&quot;: &quot;&quot;,</span><br><span class="line">                &quot;path&quot;: [</span><br><span class="line">                    &quot;$&#123;workspaceRoot&#125;&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/include/**&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed&quot;,</span><br><span class="line">                    &quot;D:/Programs/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include&quot;,</span><br><span class="line">                    &quot;D:/Programs/opencv/mingw_build/install/include&quot;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;version&quot;: 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将目录改为自己mingw对应的路径。</p>
+<ul>
+<li><strong>launch.json</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;(gdb) Launch&quot;, // 配置名称，将会在启动配置的下拉菜单中显示</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;, // 配置类型，这里只能为cppdbg</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;, // 请求配置类型，可以为launch（启动）或attach（附加）</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/$&#123;fileBasenameNoExtension&#125;.exe&quot;, // 将要进行调试的程序的路径</span><br><span class="line">            &quot;args&quot;: [], // 程序调试时传递给程序的命令行参数，一般设为空即可</span><br><span class="line">            &quot;stopAtEntry&quot;: false, // 设为true时程序将暂停在程序入口处，一般设置为false</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;, // 调试程序时的工作目录，一般为$&#123;workspaceRoot&#125;即代码所在目录 workspaceRoot已被弃用，现改为workspaceFolder</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true, // 调试时是否显示控制台窗口，一般设置为true显示控制台</span><br><span class="line">            &quot;MIMode&quot;: &quot;gdb&quot;,</span><br><span class="line">            &quot;miDebuggerPath&quot;: &quot;D:/Programs/mingw64/bin/gdb.exe&quot;, // miDebugger的路径，注意这里要与MinGw的路径对应</span><br><span class="line">            &quot;preLaunchTask&quot;: &quot;g++&quot;, // 调试会话开始前执行的任务，一般为编译程序，c++为g++, c为gcc</span><br><span class="line">            &quot;setupCommands&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</span><br><span class="line">                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</span><br><span class="line">                    &quot;ignoreFailures&quot;: true</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意<strong>miDebuggerPath</strong>的路径。</p>
+<ul>
+<li><strong>tasks.json</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">    &quot;command&quot;: &quot;g++&quot;,</span><br><span class="line">    &quot;args&quot;: [</span><br><span class="line">        &quot;-g&quot;,</span><br><span class="line">        &quot;$&#123;file&#125;&quot;,</span><br><span class="line">        &quot;-o&quot;,</span><br><span class="line">        &quot;$&#123;fileBasenameNoExtension&#125;.exe&quot;,</span><br><span class="line">        &quot;-I&quot;, &quot;D:/Programs/opencv/mingw_build/install/include&quot;,</span><br><span class="line">        &quot;-I&quot;, &quot;D:/Programs/opencv/mingw_build/install/include/opencv2&quot;,</span><br><span class="line">        &quot;-I&quot;, &quot;D:/Programs/opencv/mingw_build/install/x64/mingw/bin&quot;,</span><br><span class="line">        &quot;-L&quot;, &quot;D:/Programs/opencv/mingw_build/install/x64/mingw/lib&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_calib3d430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_core430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_dnn430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_features2d430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_flann430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_highgui430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_imgcodecs430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_imgproc430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_ml430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_objdetect430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_photo430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_stitching430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_video430&quot;,</span><br><span class="line">        &quot;-l&quot;, &quot;opencv_videoio430&quot;,</span><br><span class="line">    ],</span><br><span class="line">    &quot;problemMatcher&quot;: &#123;</span><br><span class="line">        &quot;owner&quot;: &quot;cpp&quot;,</span><br><span class="line">        &quot;fileLocation&quot;: [</span><br><span class="line">            &quot;relative&quot;,</span><br><span class="line">            &quot;$&#123;workspaceFolder&#125;&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;pattern&quot;: &#123;</span><br><span class="line">            &quot;regexp&quot;: &quot;^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$&quot;,</span><br><span class="line">            &quot;file&quot;: 1,</span><br><span class="line">            &quot;line&quot;: 2,</span><br><span class="line">            &quot;column&quot;: 3,</span><br><span class="line">            &quot;severity&quot;: 4,</span><br><span class="line">            &quot;message&quot;: 5</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;group&quot;: &#123;</span><br><span class="line">        &quot;kind&quot;: &quot;build&quot;,</span><br><span class="line">        &quot;isDefault&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点在这里，首先要修改对应路径，<strong>-l(i大写)”代表头文件位置,-L代表库文件位置，-l(l小写)代表库文件，不用写后缀。</strong>注意不要弄L和I！！！到这里基本就可以用了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>VScode搭建OpenCV环境，<a href="https://www.cnblogs.com/kensporger/p/12320622.html" target="_blank" rel="noopener">链接</a></li>
+<li>Windows10下Opencv4+CMake+MinGW64+VSC安装教程，<a href="https://www.cnblogs.com/uestc-mm/p/12758110.html" target="_blank" rel="noopener">链接</a></li>
+<li>vscode windows10 opencv c++ 环境配置，<a href="https://blog.csdn.net/dss875914213/article/details/103338355" target="_blank" rel="noopener">链接</a></li>
+<li>OpenCV4.3.0 编译踩坑填坑，<a href="https://www.jianshu.com/p/629d5ae6e18c" target="_blank" rel="noopener">链接</a></li>
+<li>Win10下Qt+OpenCV+Cmake编译错误记录与解决【gcc: error: long: No such file or directory】，<a href="https://blog.csdn.net/nohopenolove/article/details/106411477" target="_blank" rel="noopener">链接</a></li>
+</ol>
+
       
     </div>
     
@@ -504,8 +563,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -596,6 +664,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#预安装环境"><span class="nav-number">1.</span> <span class="nav-text">预安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译C"><span class="nav-number">1.1.</span> <span class="nav-text">编译C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置openCV"><span class="nav-number">1.2.</span> <span class="nav-text">配置openCV</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译openCV"><span class="nav-number">2.</span> <span class="nav-text">编译openCV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VSCode配置"><span class="nav-number">3.</span> <span class="nav-text">VSCode配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
